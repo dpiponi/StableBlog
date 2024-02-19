@@ -12,3 +12,7 @@ Monads
 Comonads
 --------
 * [Evaluating cellular automata is comonaic](https://github.com/dpiponi/StableBlog/blob/main/EvaluatingCellular/EvaluatingCellular.pdf)
+
+Category Theory
+---------------
+* [Reverse Engineering Machines with the Yoneda Lemma](https://github.com/dpiponi/StableBlog/blob/main/Yoneda/Yoneda.pdf)
