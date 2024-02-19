@@ -3,7 +3,8 @@
 This is a repository containing TeX vesions of articles in [my blog](https://blog.sigfpe.com).
 My hope is that links to this repo will have more longevity than links to [Blogger](https://www.blogger.com).
 
-I've made light edits, mainly to eliminate overfull hboxes. I've left in material that may seem a little dated now.
+I've made light edits, mainly to eliminate overfull hboxes and to make sure code compiles with GHC.
+I've left in material that may seem a little dated now.
 
 Monads
 ------
