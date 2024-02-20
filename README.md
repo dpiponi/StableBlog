@@ -9,6 +9,7 @@ I've left in material that may seem a little dated now.
 Monads
 ------
 * [You Could Have Invented Monads](https://github.com/dpiponi/StableBlog/blob/main/YouCouldHaveInvented/YouCouldHaveInvented.pdf)
+* [Tagging Monad Transformer Layers](https://github.com/dpiponi/StableBlog/blob/main/TaggingMonad/TaggingMonad.pdf)
 
 Comonads
 --------
