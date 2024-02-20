@@ -58,7 +58,7 @@ But now there's another machine to consider. This one takes as input a function 
 < machine2 f = map f a where a = undefined -- ?to be determined?
 
 
-So if this were the case, how would we determine what a was? How about using the same trick as before:
+So if this were the case, how would we determine what @a@ was? How about using the same trick as before:
 
 
 > uncheck2 :: (forall b . (a -> b) -> [b]) -> [a]
