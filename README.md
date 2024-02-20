@@ -13,7 +13,7 @@ Monads
 
 Comonads
 --------
-* [Evaluating cellular automata is comonaic](https://github.com/dpiponi/StableBlog/blob/main/EvaluatingCellular/EvaluatingCellular.pdf)
+* [Evaluating cellular automata is comonadic](https://github.com/dpiponi/StableBlog/blob/main/EvaluatingCellular/EvaluatingCellular.pdf)
 
 Category Theory
 ---------------
