@@ -23,4 +23,4 @@ Category Theory
 
 Other
 -----
-* [From Löb's theorem to spreadsheet evaluation](https://github.com/dpiponi/StableBlog/blob/main/FroLoebsTheorem/FroLoebsTheorem.pdf)
+* [From Löb's theorem to spreadsheet evaluation](https://github.com/dpiponi/StableBlog/blob/main/FromLoebsTheorem/FromLoebsTheorem.pdf)
