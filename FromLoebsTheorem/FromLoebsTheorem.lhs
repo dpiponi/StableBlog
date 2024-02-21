@@ -181,5 +181,5 @@ Who'd have guessed that a useful function like this is what we'd get
 from L\"{o}b's theorem?
 
 \section{Afterword}
-See Kenneth Foner's Functional Pearl \href{Getting a quick fix on comonads}{https://dl.acm.org/doi/10.1145/2887747.2804310}.
+See Kenneth Foner's Functional Pearl \href{https://dl.acm.org/doi/10.1145/2887747.2804310}{Getting a quick fix on comonads}.
 \end{document}
