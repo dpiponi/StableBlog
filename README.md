@@ -21,6 +21,10 @@ Category Theory
 
 * [Reverse Engineering Machines with the Yoneda Lemma](https://github.com/dpiponi/StableBlog/blob/main/Yoneda/Yoneda.pdf)
 
+Quantum Mechanics
+-----------------
+* [Negative Probabilities](https://github.com/dpiponi/StableBlog/blob/main/NegativeProbabilities/NegativeProbabilities.pdf)
+
 Other
 -----
 * [From Löb's theorem to spreadsheet evaluation](https://github.com/dpiponi/StableBlog/blob/main/FromLoebsTheorem/FromLoebsTheorem.pdf)
