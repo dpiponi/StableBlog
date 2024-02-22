@@ -27,6 +27,8 @@ Quantum Mechanics
 
 Clifford Algebras
 ----------------
+<img src="https://github.com/dpiponi/StableBlog/blob/main/ConstructingClifford/Clifford1.jpg" width="400">
+
 * [Constructing Clifford Algebras using the Super Tensor Product](https://github.com/dpiponi/StableBlog/blob/main/ConstructingClifford/ConstructingClifford.pdf)
 
 Other
