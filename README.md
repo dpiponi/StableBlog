@@ -25,6 +25,10 @@ Quantum Mechanics
 -----------------
 * [Negative Probabilities](https://github.com/dpiponi/StableBlog/blob/main/NegativeProbabilities/NegativeProbabilities.pdf)
 
+Clifford Algebras
+----------------
+* [Constructing Clifford Algebras using the Super Tensor Product](https://github.com/dpiponi/StableBlog/blob/main/ConstructingClifford/ConstructingClifford.pdf)
+
 Other
 -----
 * [From Löb's theorem to spreadsheet evaluation](https://github.com/dpiponi/StableBlog/blob/main/FromLoebsTheorem/FromLoebsTheorem.pdf)
