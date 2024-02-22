@@ -123,7 +123,7 @@ Note that the sign flip arises when we shuffle an odd $c$ left past an odd $b$.
 The neat fact that John pointed out to me is that
 $\mathop{Cliff}_n=\mathbb{C}\otimes\mathbb{C}\otimes\ldots\mbox{ n times }\ldots\otimes\mathbb{C}$.
 
-We have to modify our definition of @\otimes@ to take into account that sign flip.
+We have to modify our definition of @*@ to take into account that sign flip.
 
 I initially wrote a whole lot of code to define a superalgebra as a pair of algebras with four multiplication operations and it got a bit messy.
 But I noticed that the only specifically superalgebraic operation I ever performed on an element of a superalgebra was negating the odd part of an element.
