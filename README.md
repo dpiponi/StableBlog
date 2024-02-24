@@ -22,6 +22,7 @@ Category Theory
 <img src="https://github.com/dpiponi/StableBlog/blob/main/Yoneda/Diagram1.jpg" width="400">
 
 * [Reverse Engineering Machines with the Yoneda Lemma](https://github.com/dpiponi/StableBlog/blob/main/Yoneda/Yoneda.pdf)
+* [Profunctors in Haskell](https://github.com/dpiponi/StableBlog/blob/main/Profunctors/Profunctors.pdf)
 
 Quantum Mechanics
 -----------------
