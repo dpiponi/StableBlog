@@ -21,7 +21,7 @@
 % (scaled to match size of Palatino)
 % \usepackage[scaled=0.85]{beramono}
 
-\title{Reverse Engineering Machines with the Yoneda Lemma}
+\title{Profunctors in Haskell}
 \author{Dan Piponi}
 \date{February 2024}
 
