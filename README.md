@@ -3,6 +3,8 @@
 This is a repository containing TeX vesions of articles in [my blog](https://blog.sigfpe.com).
 My hope is that links to this repo will have more longevity than links to [Blogger](https://www.blogger.com).
 
+I'm actively in the process of creating this repo and these are preliminary draughts for now.
+
 I've made light edits, mainly to eliminate overfull hboxes and to make sure code compiles with GHC.
 I've left in material that may seem a little dated now.
 

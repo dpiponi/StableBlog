@@ -207,4 +207,7 @@ NB Everything I've said is modulo the equivalence of natural transformations and
 @f@ is the identity for everything except for objects of type @Int@. This is an example of what I call "funny stuff".
 
 [2] The accent on this letter \v{c} is called a caron or h\'{a}\v{c}ek. The book from which I learned about the Yoneda lemma used the caron to indicate the function I call @check@. I called it that because the TeX command to produce this symbol is \verb|\check|. This is a multilayered pun, presumably by Knuth. It could just be that 'check' is an anglicised abbreviation for h\'{a}\v{c}ek. But it's also a characterisically Czech accent so it's probably also an easier (for English speakers) spelling for 'Czech'. And I think it's also a pun on \v{C}ech. The caron is used on an H to represent \v{C}ech cohomology and so it's also called the \v{C}ech accent.
+
+\section{Afterword}
+See also \href{https://dl.acm.org/doi/pdf/10.1145/3236779}{What You Needa Know about Yoneda} by Boisseau and Gibbons.
 \end{document}
