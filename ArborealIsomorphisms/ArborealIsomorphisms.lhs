@@ -447,4 +447,8 @@ So time to think about what exactly we have here. We have a way to pack $7$-tupl
 
 And everything I say here is derived from the amazing paper Seven Trees in One by Andreas Blass. I've mentioned it a few times before but I've been meaning to implement the isomorphism explicitly for ages.
 Blass's paper also shows that you can, to some extent, argue $\mbox{paralegal} \implies \mbox{legal}$ --- something that's far from obvious.
+
+\section{Afterword}
+See \href{https://www.sciencedirect.com/science/article/pii/S0167642312001359}{The algorithmics of solitaire-like games} by Roland Backhouse, Wei Chen, and Jo\~ao F. Ferreira.
+
 \end{document}
