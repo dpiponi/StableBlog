@@ -37,3 +37,4 @@ Clifford Algebras
 Other
 -----
 * [From Löb's theorem to spreadsheet evaluation](https://github.com/dpiponi/StableBlog/blob/main/FromLoebsTheorem/FromLoebsTheorem.pdf)
+* [Arboreal Isomorphisms from Nuclear Pennies](https://github.com/dpiponi/StableBlog/blob/main/ArborealIsomorphisms/Arboreal2.png)
