@@ -45,6 +45,9 @@ get mapped to the right component of $U+X$. When we are able to do this, we'll c
 We can express the relationship between U and X through a multiparameter type class
 
 
+> {-# LANGUAGE FunctionalDependencies #-}
+> {-# LANGUAGE UndecidableInstances #-}
+
 > diagonal x = (x, x)
 
 > class Eq x => AntiDiagonal u x | x -> u where
@@ -245,17 +248,20 @@ In other words $P = 4P+6L$. The easiest thing is to code this up. Remember that 
 >                   | Diff Bool SharedList deriving Show
 
 > instance AntiDiagonal SharedList [Bool] where
->   twine' ([],b:t) = LeftNil b t
->   twine' (b:t,[]) = RightNil b t
->   twine' (a:b,a':b') | a==a' = HeadSame a (twine' (b,b'))
->                   | b==b' = TailSame a b
->                   | otherwise = Diff a (twine' (b,b'))
+>   twine' ([], b : t) = LeftNil b t
+>   twine' (b : t, []) = RightNil b t
+>   twine' (a : b, a' : b')
+>         | a==a' = HeadSame a (twine' (b, b'))
+>         | b==b' = TailSame a b
+>         | otherwise = Diff a (twine' (b, b'))
 
->   untwine' (LeftNil b t)  = ([],b:t)
->   untwine' (RightNil b t) = (b:t,[])
->   untwine' (HeadSame a b) = let (t1,t2) = untwine' b in (a:t1,a:t2)
->   untwine' (TailSame a b) = (a:b,not a:b)
->   untwine' (Diff a b)     = let (t1,t2) = untwine' b in (a:t1,not a:t2)
+>   untwine' (LeftNil b t)  = ([],b : t)
+>   untwine' (RightNil b t) = (b : t, [])
+>   untwine' (HeadSame a b) = let (t1, t2) = untwine' b
+>                             in (a : t1, a : t2)
+>   untwine' (TailSame a b) = (a : b, not a : b)
+>   untwine' (Diff a b)     = let (t1, t2) = untwine' b
+>                             in (a : t1, not a : t2)
 
 
 This looks pretty hairy, but it's really just a slight extension of the $M=M+2N$ example.
@@ -273,7 +279,7 @@ But before I can talk about that I need to write a blog about generalised tries.
 
 Here are some exercises.
 
-(1) Can you code up the antidiagonal of binary boolean trees, $T = 2+T2$:
+(1) Can you code up the antidiagonal of binary boolean trees, $T = 2+T^{\underline{2}}$:
 
 
 < data BoolTree = Leaf Bool | Fork BoolTree BoolTree
