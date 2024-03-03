@@ -46,4 +46,4 @@ Other
 
 <img src="https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/compiling.png" width="400px">
 
-* []The Three Projections of Doctor Futamura](https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/TheThreeProjections.pdf)
+* [The Three Projections of Doctor Futamura](https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/TheThreeProjections.pdf)
