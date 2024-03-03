@@ -47,3 +47,5 @@ Other
 <img src="https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/compiling.png" width="400px">
 
 * [The Three Projections of Doctor Futamura](https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/TheThreeProjections.pdf)
+
+* [Fast Forwarding lrand48()](https://github.com/dpiponi/StableBlog/blob/main/FastForwarding/FastForwarding.pdf)
