@@ -43,3 +43,7 @@ Other
 
 * [Arboreal Isomorphisms from Nuclear Pennies](https://github.com/dpiponi/StableBlog/blob/main/ArborealIsomorphisms/ArborealIsomorphisms.pdf)
 * [Optimising pointer subtraction with 2-adic integers](https://github.com/dpiponi/StableBlog/blob/main/OptimisingPointer/OptimisingPointer.pdf)
+
+<img src="https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/compiling.png" width="400px">
+
+* []The Three Projections of Doctor Futamura](https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/TheThreeProjections.pdf)
