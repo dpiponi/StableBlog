@@ -54,7 +54,7 @@ If we were working with discrete probability distributions then we could simply 
 that it returns a probability.
 But even though I chose the name @prob@ to be fairly conventional (cf.
 \href{https://www.tensorflow.org/probability/examples/TensorFlow_Distributions_Tutorial}{TensorFlow Probability})
-it is not a probability.
+it is not a probability in the non-discrete case.
 
 > x = 1 / 3 :: Float
 
@@ -87,7 +87,7 @@ Let's take that infinitesimal interval idea seriosuly. Define infinitesimals (as
 > instance (Fractional a, Floating a) => Floating (D a) where
 >  sqrt (D a a') = let s = sqrt a in D s (1 / (2 * s))
 
-Now we have a new definition:
+Now we use a new definition of @prob@ where we explicitly pass in an infinitesimal interval $[x, x+a\epsilon)$ as @D x a@.
 
 > class Distribution x p where
 >   prob :: p -> D x -> D Float
@@ -112,8 +112,10 @@ It is correctly telling us that $P(y \in [\frac{1}{9}, \frac{1}{9}+\epsilon))$ i
 (which you can compute yourself using the standard formula in probability theory for changing coordinates).
 
 You can achieve the same effect using \href{https://www.tensorflow.org/probability/examples/FFJORD_Demo}{bijectors} in TensorFlow
-Probability, and it'll perform very similar steps when it uses AD to compute the Jacobian, but curiously
-it just sort of came "for free" by being honest about what @prob@ computes: the infinitesimal probability of a quantity
+Probability, and it'll perform very similar steps when it uses AD to compute the Jacobian.
+But curiously
+it just sort of came "for free" in this code as a result of us being honest about what @prob@ computes:
+the infinitesimal probability of a quantity
 lying in an infinitesimal interval.
 
 > main = do
