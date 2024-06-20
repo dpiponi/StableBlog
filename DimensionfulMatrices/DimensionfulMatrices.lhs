@@ -91,7 +91,7 @@ At the Wikipedia page, note the line
 
 $$\alpha_k:=\frac{\mathbf{r}_k^T\mathbf{r}_{k+1}}{\mathbf{p}_k^T\mathbf{Ap}_k}$$
 
-This would immediately fail to type check because if $r$ is of generic vector type $R=(R_1,\ldots,R_n)$ then $R_1^2$ isn't the same type as $R_2^2$ so they can't be added.
+This would immediately fail to type check because if each $\mathbf{r}_k$ is of generic vector type $R=(R_1,\ldots,R_n)$ then $R_1^2$ isn't the same type as $R_2^2$ so they can't be added.
 I won't go into any of the details but the easiest way to patch up this code to make it type check is to introduce a new matrix $P$ of type $R^{-1}\otimes R^{-1}$ and besides using it to make this inner product work (replacing the numerator by $\mathbf{r}_k^T P\mathbf{r}_{k+1}$) we also use $P$ anywhere in the code we need to convert a vector of type $R$ to a vector of type $R^{-1}$.
 If you try to do this as sparingly as possible you'll end up with a modified algorithm.
 But at first this seems weird.
