@@ -13,7 +13,7 @@ Note that when you view a PDF directly from GitHub it appears not to have the ex
 Monads
 ------
 * [You Could Have Invented Monads](https://github.com/dpiponi/StableBlog/blob/main/YouCouldHaveInvented/YouCouldHaveInvented.pdf)
-* [The Motherof all Monads](https://github.com/dpiponi/StableBlog/blob/main/MotherOfAll/MotherOfAll.pdf)
+* [The Mother of all Monads](https://github.com/dpiponi/StableBlog/blob/main/MotherOfAll/MotherOfAll.pdf)
 * [Tagging Monad Transformer Layers](https://github.com/dpiponi/StableBlog/blob/main/TaggingMonad/TaggingMonad.pdf)
 
 Comonads
