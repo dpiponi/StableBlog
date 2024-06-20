@@ -8,9 +8,12 @@ I'm actively in the process of creating this repo and these are preliminary drau
 I've made light edits, mainly to eliminate overfull hboxes and to make sure code compiles with GHC.
 I've left in material that may seem a little dated now.
 
+Note that when you view a PDF directly from GitHub it appears not to have the external links in it. So download it if possible.
+
 Monads
 ------
 * [You Could Have Invented Monads](https://github.com/dpiponi/StableBlog/blob/main/YouCouldHaveInvented/YouCouldHaveInvented.pdf)
+* [The Motherof all Monads](https://github.com/dpiponi/StableBlog/blob/main/MotherOfAll/MotherOfAll.pdf)
 * [Tagging Monad Transformer Layers](https://github.com/dpiponi/StableBlog/blob/main/TaggingMonad/TaggingMonad.pdf)
 
 Comonads

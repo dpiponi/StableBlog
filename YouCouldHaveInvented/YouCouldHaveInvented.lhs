@@ -33,7 +33,7 @@
 
 \title{You Could Have Invented Monads! (And Maybe You Already Have.)}
 \author{Dan Piponi}
-\date{February 2024}
+\date{February 2024 (originally August 2006)}
 
 \begin{document}
 
