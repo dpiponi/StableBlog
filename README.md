@@ -41,6 +41,7 @@ Clifford Algebras
 Other
 -----
 * [Running from the past](https://github.com/dpiponi/StableBlog/blob/main/RunningFrom/RunningFrom.pdf)
+* [Quine central](https://github.com/dpiponi/StableBlog/blob/main/QuineCentral/QuineCentral.pdf)
 * [Dimensionful Matrices](https://github.com/dpiponi/StableBlog/blob/main/DimensionfulMatrices/DimensionfulMatrices.pdf)
 * [From Löb's theorem to spreadsheet evaluation](https://github.com/dpiponi/StableBlog/blob/main/FromLoebsTheorem/FromLoebsTheorem.pdf)
 
