@@ -1,0 +1,137 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[parfill]{parskip}
+\usepackage{verbatimbox}
+\usepackage{fancyvrb}
+\usepackage{exercise}
+\usepackage{hyperref}
+
+% Palatino for main text and math
+\usepackage[osf,sc]{mathpazo}
+
+% Helvetica for sans serif
+% (scaled to match size of Palatino)
+\usepackage[scaled=0.90]{helvet}
+
+%
+%
+\makeatletter
+\@ifundefined{lhs2tex.lhs2tex.sty.read}%
+  {\@namedef{lhs2tex.lhs2tex.sty.read}{}%
+   \newcommand\SkipToFmtEnd{}%
+   \newcommand\EndFmtInput{}%
+   \long\def\SkipToFmtEnd#1\EndFmtInput{}%
+  }\SkipToFmtEnd
+
+\newcommand\ReadOnlyOnce[1]{\@ifundefined{#1}{\@namedef{#1}{}}\SkipToFmtEnd}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\DeclareFontFamily{OT1}{cmtex}{}
+\DeclareFontShape{OT1}{cmtex}{m}{n}
+  {<5><6><7><8>cmtex8
+   <9>cmtex9
+   <10><10.95><12><14.4><17.28><20.74><24.88>cmtex10}{}
+\DeclareFontShape{OT1}{cmtex}{m}{it}
+  {<-> ssub * cmtt/m/it}{}
+\newcommand{\texfamily}{\fontfamily{cmtex}\selectfont}
+\DeclareFontShape{OT1}{cmtt}{bx}{n}
+  {<5><6><7><8>cmtt8
+   <9>cmbtt9
+   <10><10.95><12><14.4><17.28><20.74><24.88>cmbtt10}{}
+\DeclareFontShape{OT1}{cmtex}{bx}{n}
+  {<-> ssub * cmtt/bx/n}{}
+\newcommand{\tex}[1]{\text{\texfamily#1}}	% NEU
+
+\newcommand{\Sp}{\hskip.33334em\relax}
+\newcommand{\NB}{\textbf{NB}}
+\newcommand{\Todo}[1]{$\langle$\textbf{To do:}~#1$\rangle$}
+
+\EndFmtInput
+\makeatother
+%
+
+% Bera Mono for monospaced
+% (scaled to match size of Palatino)
+% \usepackage[scaled=0.85]{beramono}
+
+\title{What does it mean for a monad to be strong?}
+\author{Dan Piponi}
+\date{June 2024 (originally August 2023)}
+
+\begin{document}
+
+\maketitle
+
+This is something I put on github years ago but I probably should have put it here.
+
+Here's an elementary example of the use of the list monad:
+\begin{tabbing}\ttfamily
+~~~test1~\char61{}~do\\
+\ttfamily ~~~~~x~\char60{}\char45{}~\char91{}1\char44{}~2\char93{}\\
+\ttfamily ~~~~~y~\char60{}\char45{}~\char91{}x\char44{}~10\char42{}x\char93{}\\
+\ttfamily ~~~~~\char91{}x\char42{}y\char93{}
+\end{tabbing}
+We can desugar this to:
+\begin{tabbing}\ttfamily
+~~~test2~\char61{}~\char91{}1\char44{}~2\char93{}~\char62{}\char62{}\char61{}~\char92{}x~\char45{}\char62{}~\char91{}x\char44{}~10\char42{}x\char93{}~\char62{}\char62{}\char61{}~\char92{}y~\char45{}\char62{}~\char91{}x\char42{}y\char93{}
+\end{tabbing}
+It looks like we start with a list and then apply a sequence (of length 2) of functions to it using
+bind \text{\ttfamily \char40{}\char62{}\char62{}\char61{}\char41{}}. This is probably why some people call monads workflows and why the comparison has been
+made with Unix \href{http://okmij.org/ftp/Computation/monadic-shell.html}{pipes}.
+
+But looks can be deceptive. The operator \text{\ttfamily \char40{}\char62{}\char62{}\char61{}\char41{}} is right associative and \text{\ttfamily test2} is the same as \text{\ttfamily test3}:
+\begin{tabbing}\ttfamily
+~~~test3~\char61{}~\char91{}1\char44{}~2\char93{}~\char62{}\char62{}\char61{}~\char40{}\char92{}x~\char45{}\char62{}~\char91{}x\char44{}~10\char42{}x\char93{}~\char62{}\char62{}\char61{}~\char92{}y~\char45{}\char62{}~\char91{}x\char42{}y\char93{}\char41{}
+\end{tabbing}
+You can try to parenthesise the other way:
+\begin{tabbing}\ttfamily
+~~~\char45{}\char45{}~test4~\char61{}~\char40{}\char91{}1\char44{}~2\char93{}~\char62{}\char62{}\char61{}~\char92{}x~\char45{}\char62{}~\char91{}x\char44{}~10\char42{}x\char93{}\char41{}~\char62{}\char62{}\char61{}~\char92{}y~\char45{}\char62{}~\char91{}x\char42{}y\char93{}
+\end{tabbing}
+We get a "Variable not in scope: x" error. So \text{\ttfamily test1} doesn't directly fit the workflow model. When
+people give examples of how workflow style things can be seen as monads they sometimes use
+examples where later functions don't refer to variables defined earlier. For example at the link I
+gave above the line \text{\ttfamily m~\char62{}\char62{}\char61{}~\char92{}x~\char45{}\char62{}~\char40{}n~\char62{}\char62{}\char61{}~\char92{}y~\char45{}\char62{}~o\char41{}} is transformed to \text{\ttfamily \char40{}m~\char62{}\char62{}\char61{}~\char92{}x~\char45{}\char62{}~n\char41{}~\char62{}\char62{}\char61{}~\char92{}y~\char45{}\char62{}~o} which
+only works if \text{\ttfamily o} makes no mention of \text{\ttfamily x}. I found similar things to be true in a number of tutorials,
+especially the ones that emphasise the Kleisli category view of things.
+
+But we can always "reassociate" to the left with a little bit of extra work.  The catch is that the
+function above defined by \text{\ttfamily \char92{}y~\char45{}\char62{}~\char46{}\char46{}\char46{}} "captures" \text{\ttfamily x} from its environment.  So it's not just one
+function, it's a family of functions parameterised by \text{\ttfamily x}.  We can fix this by making the dependence
+on \text{\ttfamily x} explicit.  We can then pull the inner function out as it's no longer implicitly dependent on
+its immediate context.  When compilers do this it's called \href{https://en.wikipedia.org/wiki/Lambda_lifting}{lambda lifting}.
+
+Define (the weirdly named function) \text{\ttfamily strength} by
+\begin{tabbing}\ttfamily
+~~~strength~\char58{}\char58{}~Monad~m~\char61{}\char62{}~\char40{}x\char44{}~m~y\char41{}~\char45{}\char62{}~m~\char40{}x\char44{}~y\char41{}\\
+\ttfamily ~~~strength~\char40{}x\char44{}~my\char41{}~\char61{}~do\\
+\ttfamily ~~~~~y~\char60{}\char45{}~my\\
+\ttfamily ~~~~~return~\char40{}x\char44{}~y\char41{}
+\end{tabbing}
+It allows us to smuggle \text{\ttfamily x} "into the monad".
+
+And now we can rewrite \text{\ttfamily test1}, parenthesising to the left:
+\begin{tabbing}\ttfamily
+~~~test5~\char61{}~\char40{}\char91{}1\char44{}~2\char93{}~\char62{}\char62{}\char61{}~\char92{}x~\char45{}\char62{}~strength~\char40{}x\char44{}~\char91{}x\char44{}~10\char42{}x\char93{}\char41{}\char41{}\\
+\ttfamily ~~~~~~~~~~~~~~~~~~~\char62{}\char62{}\char61{}~\char92{}\char40{}x\char44{}~y\char41{}~\char45{}\char62{}~\char91{}x\char42{}y\char93{}
+\end{tabbing}
+This is much more like a workflow. Using \text{\ttfamily strength} we can rewrite any (monadic) \text{\ttfamily do} expression as a
+left-to-right workflow, with the cost of having to throw in some applications of \text{\ttfamily strength} to carry
+along all of the captured variables. It's also using a composition of arrows in the Kleisli category.
+
+A monad with a strength function is called a strong monad. Clearly all Haskell monads are strong as I
+wrote \text{\ttfamily strength} to work with any Haskell monad. But not all monads in category theory are strong.
+It's a sort of hidden feature of Haskell (and the category Set) that we tend not to refer to explicitly.
+It could be said that we're implicitly using strength whenever we refer to earlier variables in our
+\text{\ttfamily do} expressions.
+
+See also \href{https://ncatlab.org/nlab/show/strong+monad}{nlab}.
+\begin{tabbing}\ttfamily
+~~~main~\char61{}~do\\
+\ttfamily ~~~~~print~test1\\
+\ttfamily ~~~~~print~test2\\
+\ttfamily ~~~~~print~test3\\
+\ttfamily ~~~~~\char45{}\char45{}~print~test4\\
+\ttfamily ~~~~~print~test5
+\end{tabbing}
+\end{document}

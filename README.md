@@ -26,6 +26,7 @@ Category Theory
 
 * [Reverse Engineering Machines with the Yoneda Lemma](https://github.com/dpiponi/StableBlog/blob/main/Yoneda/Yoneda.pdf)
 * [Profunctors in Haskell](https://github.com/dpiponi/StableBlog/blob/main/Profunctors/Profunctors.pdf)
+* [What does it mean for a monad to be strong?](https://github.com/dpiponi/StableBlog/blob/main/Strength/Strength.pdf)
 
 Quantum Mechanics
 -----------------
