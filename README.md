@@ -53,3 +53,5 @@ Other
 * [The Three Projections of Doctor Futamura](https://github.com/dpiponi/StableBlog/blob/main/TheThreeProjections/TheThreeProjections.pdf)
 
 * [Fast Forwarding lrand48()](https://github.com/dpiponi/StableBlog/blob/main/FastForwarding/FastForwarding.pdf)
+
+* [Dimensionalful matrices](https://github.com/dpiponi/StableBlog/blob/main/DimensionfulMatrices/DimensionfulMatrices.pdf)
