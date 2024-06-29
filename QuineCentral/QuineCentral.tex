@@ -1,0 +1,246 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[parfill]{parskip}
+\usepackage{verbatimbox}
+\usepackage{fancyvrb}
+\usepackage{exercise}
+\usepackage{hyperref}
+
+% Palatino for main text and math
+\usepackage[osf,sc]{mathpazo}
+
+% Helvetica for sans serif
+% (scaled to match size of Palatino)
+\usepackage[scaled=0.90]{helvet}
+
+%
+%
+\makeatletter
+\@ifundefined{lhs2tex.lhs2tex.sty.read}%
+  {\@namedef{lhs2tex.lhs2tex.sty.read}{}%
+   \newcommand\SkipToFmtEnd{}%
+   \newcommand\EndFmtInput{}%
+   \long\def\SkipToFmtEnd#1\EndFmtInput{}%
+  }\SkipToFmtEnd
+
+\newcommand\ReadOnlyOnce[1]{\@ifundefined{#1}{\@namedef{#1}{}}\SkipToFmtEnd}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\DeclareFontFamily{OT1}{cmtex}{}
+\DeclareFontShape{OT1}{cmtex}{m}{n}
+  {<5><6><7><8>cmtex8
+   <9>cmtex9
+   <10><10.95><12><14.4><17.28><20.74><24.88>cmtex10}{}
+\DeclareFontShape{OT1}{cmtex}{m}{it}
+  {<-> ssub * cmtt/m/it}{}
+\newcommand{\texfamily}{\fontfamily{cmtex}\selectfont}
+\DeclareFontShape{OT1}{cmtt}{bx}{n}
+  {<5><6><7><8>cmtt8
+   <9>cmbtt9
+   <10><10.95><12><14.4><17.28><20.74><24.88>cmbtt10}{}
+\DeclareFontShape{OT1}{cmtex}{bx}{n}
+  {<-> ssub * cmtt/bx/n}{}
+\newcommand{\tex}[1]{\text{\texfamily#1}}	% NEU
+
+\newcommand{\Sp}{\hskip.33334em\relax}
+\newcommand{\NB}{\textbf{NB}}
+\newcommand{\Todo}[1]{$\langle$\textbf{To do:}~#1$\rangle$}
+
+\EndFmtInput
+\makeatother
+%
+
+% Bera Mono for monospaced
+% (scaled to match size of Palatino)
+% \usepackage[scaled=0.85]{beramono}
+
+% \renewcommand{\hscodestyle}{\small}
+
+\title{QuineCentral}
+\author{Dan Piponi}
+\date{February 2024}
+
+\begin{document}
+
+\section{Quines for Everyone}
+This is an interruption to the sequence on provability logic (though it's not entirely unrelated).
+
+The code below spits out a Haskell program that prints out a Perl program that prints out a Python program that prints out a Ruby program that prints out a C program that prints out a Java program that prints out the original program. Nothing new, an obvious generalisation of \href{http://blog.sigfpe.com/2008/02/third-order-quine-in-three-languages.html}{this}. (Well, truth be told, it's a block of HTML that generates some Haskell code...)
+
+But there's one big difference. To allow everyone else to join in the fun you can configure it yourself! Any non-empty list of languages will do, including length one. You may start hitting language line length limits if you make your list too long. Note that you can repeat languages so you can give someone some Haskell which decays into Perl after n iterations.
+
+The code is geared towards generating tightly packed code but it's easily adapted to generate something slightly more readable. Apologies for the C warnings. Trivial to fix.
+
+It's easily extended to support many more languages. C++, C\#, obj-C, ocaml, Prolog, Lisp, Scheme and Go, say, should all be trivial apart from maybe a tiny bit of work with delimiting strings. (Eg. for Go you may need to tweak the import statement slightly so it doesnt't use double quotation marks.)
+
+The code leaves many opportunities for refactoring but it's not like anyone is actually going to use this code for real production so I'm leaving it as is now.
+
+I've only tested it under MacOS X. I don't know if there are carriage return/linefeed issues with other OSes. The shell script at the end is a regression test.
+
+There was a little bit of theory involved which I learnt from \href{https://web.stanford.edu/group/cslipublications/cslipublications/site/1575860082.shtml}{Vicious Circles}.
+
+Here's a challenge for you: write a quine that takes as input the name of a language and outputs the same thing implemented in the input language. Much harder than what I just wrote.
+\begin{tabbing}\ttfamily
+~~~import~Data\char46{}List
+\end{tabbing}
+Here's the bit you can easily play with:
+\begin{tabbing}\ttfamily
+~~~langs~\char61{}~\char91{}Haskell\char44{}~Perl\char44{}~Python\char44{}~Ruby\char44{}~C\char44{}~Java\char93{}
+\end{tabbing}
+\section{Implementation}
+\begin{tabbing}\ttfamily
+~~~data~Languages~\char61{}~Haskell~\char124{}~Ruby~\char124{}~Perl~\char124{}~C~\char124{}~Python~\char124{}~Java
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~sequenceFromString~Haskell~s~\char61{}~\char34{}map~toEnum\char91{}\char34{}~\char43{}\char43{}~\char40{}intercalate~\char34{}\char44{}\char34{}~\char36{}\\
+\ttfamily ~~~~~~~map~\char40{}\char92{}c~\char45{}\char62{}~show~\char40{}fromEnum~c\char41{}\char41{}~s\char41{}~\char43{}\char43{}~\char34{}\char93{}\char34{}\\
+\ttfamily ~~~sequenceFromString~Perl~s~~~~\char61{}~\char40{}intercalate~\char34{}\char44{}\char34{}~\char36{}\\
+\ttfamily ~~~~~~~map~\char40{}\char92{}c~\char45{}\char62{}~\char34{}chr\char40{}\char34{}~\char43{}\char43{}~show~\char40{}fromEnum~c\char41{}~\char43{}\char43{}~\char34{}\char41{}\char34{}\char41{}~s\char41{}\\
+\ttfamily ~~~sequenceFromString~Python~s~~\char61{}~\char40{}intercalate~\char34{}\char43{}\char34{}~\char36{}\\
+\ttfamily ~~~~~~~map~\char40{}\char92{}c~\char45{}\char62{}~\char34{}chr\char40{}\char34{}~\char43{}\char43{}~show~\char40{}fromEnum~c\char41{}~\char43{}\char43{}~\char34{}\char41{}\char34{}\char41{}~s\char41{}\\
+\ttfamily ~~~sequenceFromString~Ruby~s~~~~\char61{}~\char40{}intercalate~\char34{}\char43{}\char34{}~\char36{}\\
+\ttfamily ~~~~~~~map~\char40{}\char92{}c~\char45{}\char62{}~show~\char40{}fromEnum~c\char41{}~\char43{}\char43{}~\char34{}\char46{}chr\char34{}\char41{}~s\char41{}\\
+\ttfamily ~~~sequenceFromString~C~s~~~~~~~\char61{}~concatMap\\
+\ttfamily ~~~~~~~\char40{}\char92{}c~\char45{}\char62{}~\char34{}putchar\char40{}\char34{}~\char43{}\char43{}~show~\char40{}fromEnum~c\char41{}~\char43{}\char43{}~\char34{}\char41{}\char59{}\char34{}\char41{}~s\\
+\ttfamily ~~~sequenceFromString~Java~s~~~~\char61{}~concatMap\\
+\ttfamily ~~~~~~~\char40{}\char92{}c~\char45{}\char62{}~\char34{}o\char46{}write\char40{}\char34{}~\char43{}\char43{}~show~\char40{}fromEnum~c\char41{}~\char43{}\char43{}~\char34{}\char41{}\char59{}\char34{}\char41{}~s
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~paramList\char39{}~Haskell~\char61{}~intercalate~\char34{}~\char34{}~\char46{}\\
+\ttfamily ~~~~~~~~~~~~~~~~~~~map~\char40{}\char92{}n~\char45{}\char62{}~\char34{}a\char34{}~\char43{}\char43{}~show~n\char41{}\\
+\ttfamily ~~~paramList\char39{}~C~~~~~~~\char61{}~intercalate~\char34{}\char44{}\char34{}~\char46{}\\
+\ttfamily ~~~~~~~~~~~~~~~~~~~map~\char40{}\char92{}n~\char45{}\char62{}~\char34{}char~\char42{}a\char34{}~\char43{}\char43{}~show~n\char41{}\\
+\ttfamily ~~~paramList\char39{}~Python~~\char61{}~intercalate~\char34{}\char44{}\char34{}~\char46{}\\
+\ttfamily ~~~~~~~~~~~~~~~~~~~map~\char40{}\char92{}n~\char45{}\char62{}~\char34{}a\char34{}~\char43{}\char43{}~show~n\char41{}\\
+\ttfamily ~~~paramList\char39{}~Ruby~~~~\char61{}~intercalate~\char34{}\char44{}\char34{}~\char46{}\\
+\ttfamily ~~~~~~~~~~~~~~~~~~~map~\char40{}\char92{}n~\char45{}\char62{}~\char34{}a\char34{}~\char43{}\char43{}~show~n\char41{}\\
+\ttfamily ~~~paramList\char39{}~Java~~~~\char61{}~intercalate~\char34{}\char44{}\char34{}~\char46{}\\
+\ttfamily ~~~~~~~~~~~~~~~~~~~map~\char40{}\char92{}n~\char45{}\char62{}~\char34{}String~a\char34{}~\char43{}\char43{}~show~n\char41{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~paramList~Perl~~~~\char95{}~\char61{}~\char34{}\char34{}\\
+\ttfamily ~~~paramList~lang~n~\char61{}~paramList\char39{}~lang~\char91{}0\char46{}\char46{}n\char45{}1\char93{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~driver~l~args~\char61{}~defn~l~\char43{}\char43{}\\
+\ttfamily ~~~~~~~~~~~intercalate~\char40{}divider~l\char41{}~args~\char43{}\char43{}~endDefn~l
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~divider~C~~~~~~~\char61{}~\char34{}\char92{}\char34{}\char44{}\char92{}\char34{}\char34{}\\
+\ttfamily ~~~divider~Perl~~~~\char61{}~\char34{}\char39{}\char44{}\char39{}\char34{}\\
+\ttfamily ~~~divider~Ruby~~~~\char61{}~\char34{}\char92{}\char34{}\char44{}\char92{}\char34{}\char34{}\\
+\ttfamily ~~~divider~Python~~\char61{}~\char34{}\char92{}\char34{}\char44{}\char92{}\char34{}\char34{}\\
+\ttfamily ~~~divider~Haskell~\char61{}~\char34{}\char92{}\char34{}~\char92{}\char34{}\char34{}\\
+\ttfamily ~~~divider~Java~~~~\char61{}~\char34{}\char92{}\char34{}\char44{}\char92{}\char34{}\char34{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~defn~C~~~~~~~\char61{}~\char34{}main\char40{}\char41{}\char123{}q\char40{}\char92{}\char34{}\char34{}\\
+\ttfamily ~~~defn~Perl~~~~\char61{}~\char34{}\char38{}q\char40{}\char39{}\char34{}\\
+\ttfamily ~~~defn~Python~~\char61{}~\char34{}q\char40{}\char92{}\char34{}\char34{}\\
+\ttfamily ~~~defn~Ruby~~~~\char61{}~\char34{}q\char40{}\char92{}\char34{}\char34{}\\
+\ttfamily ~~~defn~Haskell~\char61{}~\char34{}main\char61{}q~\char92{}\char34{}\char34{}\\
+\ttfamily ~~~defn~Java~~~~\char61{}~\char34{}public~static~void~main\char40{}String\char91{}\char93{}args\char41{}\char123{}q\char40{}\char92{}\char34{}\char34{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~endDefn~C~~~~~~~\char61{}~\char34{}\char92{}\char34{}\char41{}\char59{}\char125{}\char34{}\\
+\ttfamily ~~~endDefn~Perl~~~~\char61{}~\char34{}\char39{}\char41{}\char34{}\\
+\ttfamily ~~~endDefn~Python~~\char61{}~\char34{}\char92{}\char34{}\char41{}\char34{}\\
+\ttfamily ~~~endDefn~Ruby~~~~\char61{}~\char34{}\char92{}\char34{}\char41{}\char34{}\\
+\ttfamily ~~~endDefn~Haskell~\char61{}~\char34{}\char92{}\char34{}\char34{}\\
+\ttfamily ~~~endDefn~Java~~~~\char61{}~\char34{}\char92{}\char34{}\char41{}\char59{}\char125{}\char125{}\char34{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~arg~Haskell~n~\char61{}~\char34{}a\char34{}~\char43{}\char43{}~show~n\\
+\ttfamily ~~~arg~Perl~n~~~~\char61{}~\char34{}\char36{}\char95{}\char91{}\char34{}~\char43{}\char43{}~show~n~\char43{}\char43{}~\char34{}\char93{}\char34{}\\
+\ttfamily ~~~arg~C~n~~~~~~~\char61{}~\char34{}printf\char40{}a\char34{}~\char43{}\char43{}~show~n~\char43{}\char43{}~\char34{}\char41{}\char59{}\char34{}\\
+\ttfamily ~~~arg~Python~n~~\char61{}~\char34{}a\char34{}~\char43{}\char43{}~show~n\\
+\ttfamily ~~~arg~Ruby~n~~~~\char61{}~\char34{}a\char34{}~\char43{}\char43{}~show~n\\
+\ttfamily ~~~arg~Java~n~~~~\char61{}~\char34{}o\char46{}print\char40{}a\char34{}~\char43{}\char43{}~show~n~\char43{}\char43{}~\char34{}\char41{}\char59{}\char34{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~argDivide~Haskell~l~\char61{}~\char34{}\char43{}\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~~~~sequenceFromString~Haskell~\char40{}divider~l\char41{}~\char43{}\char43{}~\char34{}\char43{}\char43{}\char34{}\\
+\ttfamily ~~~argDivide~Perl~l~~~~\char61{}~\char34{}\char44{}\char34{}~~~~\char43{}\char43{}\\
+\ttfamily ~~~~~~~~~~sequenceFromString~Perl~\char40{}divider~l\char41{}~\char43{}\char43{}~\char34{}\char44{}\char34{}\\
+\ttfamily ~~~argDivide~C~l~~~~~~~\char61{}\\
+\ttfamily ~~~~~~~~~~sequenceFromString~C~\char40{}divider~l\char41{}\\
+\ttfamily ~~~argDivide~Python~l~~\char61{}\\
+\ttfamily ~~~~~~~~~~\char34{}\char43{}\char34{}~\char43{}\char43{}~sequenceFromString~Python~\char40{}divider~l\char41{}~\char43{}\char43{}~\char34{}\char43{}\char34{}\\
+\ttfamily ~~~argDivide~Ruby~l~~~~\char61{}\\
+\ttfamily ~~~~~~~~~~\char34{}\char43{}\char34{}~\char43{}\char43{}~sequenceFromString~Ruby~\char40{}divider~l\char41{}~\char43{}\char43{}~\char34{}\char43{}\char34{}\\
+\ttfamily ~~~argDivide~Java~l~~~~\char61{}\\
+\ttfamily ~~~~~~~~~~sequenceFromString~Java~\char40{}divider~l\char41{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~argList~lang1~lang2~n~\char61{}~intercalate~\char40{}argDivide~lang1~lang2\char41{}~\char36{}\\
+\ttfamily ~~~~~~~map~\char40{}arg~lang1\char41{}~\char40{}\char91{}1\char46{}\char46{}n\char45{}1\char93{}~\char43{}\char43{}~\char91{}0\char93{}\char41{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~fromTo~Haskell~l~n~\char61{}~\char34{}q~\char34{}~\char43{}\char43{}~paramList~Haskell~n~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}\char61{}putStrLn\char36{}a0\char43{}\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Haskell~\char40{}\char34{}\char92{}n\char34{}~\char43{}\char43{}~defn~l\char41{}~\char43{}\char43{}~\char34{}\char43{}\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~argList~Haskell~l~n~\char43{}\char43{}~\char34{}\char43{}\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Haskell~\char40{}endDefn~l\char41{}\\
+\ttfamily ~~~fromTo~Perl~~~~l~n~\char61{}~\char34{}sub~q~\char123{}\char34{}~\char43{}\char43{}~\char34{}print~\char36{}\char95{}\char91{}0\char93{}\char44{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Perl~\char40{}\char34{}\char92{}n\char34{}~\char43{}\char43{}~defn~l\char41{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}\char44{}\char34{}~\char43{}\char43{}~argList~Perl~l~n~\char43{}\char43{}~\char34{}\char44{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Perl~\char40{}endDefn~l~\char43{}\char43{}~\char34{}\char92{}n\char34{}\char41{}~\char43{}\char43{}~\char34{}\char125{}\char34{}\\
+\ttfamily ~~~fromTo~Python~~l~n~\char61{}~\char34{}def~q\char40{}\char34{}~\char43{}\char43{}~paramList~Python~n~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}\char41{}\char58{}~print~a0\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Python~\char40{}\char34{}\char92{}n\char34{}~\char43{}\char43{}~defn~l\char41{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}\char43{}\char34{}~\char43{}\char43{}~argList~Python~l~n~\char43{}\char43{}~\char34{}\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Python~\char40{}endDefn~l\char41{}\\
+\ttfamily ~~~fromTo~Ruby~~~~l~n~\char61{}~\char34{}def~q\char40{}\char34{}~\char43{}\char43{}~paramList~Ruby~n~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}\char41{}~print~a0\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Ruby~\char40{}\char34{}\char92{}n\char34{}~\char43{}\char43{}~defn~l\char41{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}\char43{}\char34{}~\char43{}\char43{}~argList~Ruby~l~n~\char43{}\char43{}~\char34{}\char43{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Ruby~\char40{}endDefn~l~\char43{}\char43{}~\char34{}\char92{}n\char34{}\char41{}~\char43{}\char43{}~\char34{}~end\char34{}\\
+\ttfamily ~~~fromTo~C~~~~~~~l~n~\char61{}~\char34{}q\char40{}\char34{}~\char43{}\char43{}~paramList~C~n~\char43{}\char43{}~\char34{}\char41{}\char123{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}printf\char40{}a0\char41{}\char59{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~C~\char40{}\char34{}\char92{}n\char34{}~\char43{}\char43{}~defn~l\char41{}~\char43{}\char43{}~argList~C~l~n~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~C~\char40{}endDefn~l~\char43{}\char43{}~\char34{}\char92{}n\char34{}\char41{}~\char43{}\char43{}~\char34{}\char125{}\char34{}\\
+\ttfamily ~~~fromTo~Java~~~~l~n~\char61{}\\
+\ttfamily ~~~~~~\char34{}public~class~quine\char123{}public~static~void~q\char40{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~paramList~Java~n~\char43{}\char43{}\\
+\ttfamily ~~~~~~~\char34{}\char41{}\char123{}java\char46{}io\char46{}PrintStream~o\char61{}System\char46{}out\char59{}o\char46{}print\char40{}a0\char41{}\char59{}\char34{}~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Java~\char40{}\char34{}\char92{}n\char34{}~\char43{}\char43{}~defn~l\char41{}~\char43{}\char43{}~argList~Java~l~n~\char43{}\char43{}\\
+\ttfamily ~~~~~~~sequenceFromString~Java~\char40{}endDefn~l~\char43{}\char43{}~\char34{}\char92{}n\char34{}\char41{}~\char43{}\char43{}~\char34{}\char125{}\char34{}
+\end{tabbing}
+\begin{tabbing}\ttfamily
+~~~main~\char61{}~do\\
+\ttfamily ~~~~~~~let~n~\char61{}~length~langs\\
+\ttfamily ~~~~~~~let~langs\char39{}~\char61{}~cycle~langs\\
+\ttfamily ~~~~~~~putStrLn~\char36{}~fromTo~\char40{}head~langs\char39{}\char41{}~\char40{}head~\char40{}tail~langs\char39{}\char41{}\char41{}~n\\
+\ttfamily ~~~~~~~putStrLn~\char36{}~driver~\char40{}head~langs\char39{}\char41{}~\char36{}\\
+\ttfamily ~~~~~~~~~~~zipWith~\char40{}\char92{}lang1~lang2~\char45{}\char62{}~fromTo~lang1~lang2~n\char41{}\\
+\ttfamily ~~~~~~~~~~~\char40{}take~n~\char40{}tail~langs\char39{}\char41{}\char41{}~\char40{}tail~\char40{}tail~langs\char39{}\char41{}\char41{}
+\end{tabbing}
+\section{Regression Test}
+Assuming this article is stored in -\text{\ttfamily quineCentral\char46{}lhs}-.
+\begin{tabbing}\ttfamily
+~runghc~quineCentral\char46{}lhs\char62{}1\char46{}hs\\
+\ttfamily ~cat~1\char46{}hs\\
+\ttfamily ~echo~\char34{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char34{}\\
+\ttfamily ~runghc~1\char46{}hs\char62{}2\char46{}pl\\
+\ttfamily ~cat~2\char46{}pl\\
+\ttfamily ~echo~\char34{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char34{}\\
+\ttfamily ~perl~2\char46{}pl\char62{}3\char46{}py\\
+\ttfamily ~cat~3\char46{}py\\
+\ttfamily ~echo~\char34{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char34{}\\
+\ttfamily ~python~3\char46{}py\char62{}4\char46{}ruby\\
+\ttfamily ~cat~4\char46{}ruby\\
+\ttfamily ~echo~\char34{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char34{}\\
+\ttfamily ~ruby~4\char46{}ruby\char62{}5\char46{}c\\
+\ttfamily ~cat~5\char46{}c\\
+\ttfamily ~echo~\char34{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char34{}\\
+\ttfamily ~gcc~\char45{}o~5~5\char46{}c\\
+\ttfamily ~\char46{}\char47{}5\char62{}quine\char46{}java\\
+\ttfamily ~cat~quine\char46{}java\\
+\ttfamily ~echo~\char34{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char45{}\char34{}\\
+\ttfamily ~javac~quine\char46{}java\\
+\ttfamily ~java~quine\char62{}7\char46{}hs\\
+\ttfamily ~cat~7\char46{}hs\\
+\ttfamily ~diff~1\char46{}hs~7\char46{}hs
+\end{tabbing}
+\end{document}
