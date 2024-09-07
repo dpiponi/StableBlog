@@ -20,7 +20,7 @@
 % (scaled to match size of Palatino)
 % \usepackage[scaled=0.85]{beramono}
 
-\title{How to hide information from yourself}
+\title{How to hide information from yourself in a solo RPG}
 \author{Dan Piponi}
 \date{September 2024}
 
@@ -31,7 +31,8 @@
 \section{The Problem}
 Since the early days of role-playing games there has been debate over which rolls the GM should make and which are the responsibility of the players.
 But I think that for ``perception'' checks it doesn't really make sense for a player to roll.
-If, as a player, you roll to hear behind a door and succeed, but you're told there is no sound, then you know there is nothing to be heard, but you ought to just be left in suspense.
+If, as a player, you roll to hear behind a door and succeed, but you're told there is no sound, then you know there is nothing to be heard.
+But you ought to just be left in suspense.
 
 If you play a solo RPG the situation is more challenging. If there is a probability p of a room being occupied, and probability q of you hearing the occupant if you listen at the door, how can you simulate listening without making a decision about whether the room is occupied before opening the door? I propose a little mathematical trick.
 
@@ -44,7 +45,7 @@ If you play a solo RPG the situation is more challenging. If there is a probabil
 \section{Simulating conditional probabilities}
 Suppose $P(M)=p$ and $P(H|M)=q$ (and $P(H|\mbox{not }M)=0$).
 Then $P(H) = pq$.
-So to simulate the probability of hearing something at a new door, you roll to see if a monster is present, and then roll to hear it.
+So to simulate the probability of hearing something at a new door: roll to see if a monster is present, and then roll to hear it.
 If both come up positive then you hear a noise.
 
 But...but...you object, if the first roll came up positive you know there is a monster, removing the suspense if the second roll fails.
