@@ -1,0 +1,77 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[parfill]{parskip}
+\usepackage{verbatimbox}
+\usepackage{fancyvrb}
+\usepackage{exercise}
+\usepackage{hyperref}
+
+% Palatino for main text and math
+\usepackage[osf,sc]{mathpazo}
+
+% Helvetica for sans serif
+% (scaled to match size of Palatino)
+\usepackage[scaled=0.90]{helvet}
+
+%include lhs2TeX.sty
+%include lhs2TeX.fmt
+
+% Bera Mono for monospaced
+% (scaled to match size of Palatino)
+% \usepackage[scaled=0.85]{beramono}
+
+\title{How to hide information from yourself}
+\author{Dan Piponi}
+\date{September 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{The Problem}
+Since the early days of role-playing games there has been debate over which rolls the GM should make and which are the responsibility of the players.
+But I think that for ``perception'' checks it doesn't really make sense for a player to roll.
+If, as a player, you roll to hear behind a door and succeed, but you're told there is no sound, then you know there is nothing to be heard, but you ought to just be left in suspense.
+
+If you play a solo RPG the situation is more challenging. If there is a probability p of a room being occupied, and probability q of you hearing the occupant if you listen at the door, how can you simulate listening without making a decision about whether the room is occupied before opening the door? I propose a little mathematical trick.
+
+\begin{figure*}
+\centering
+\includegraphics[width=10cm]{helena.jpg}
+\caption{Helena Listening, by Arthur Rackham}
+\end{figure*}
+
+\section{Simulating conditional probabilities}
+Suppose $P(M)=p$ and $P(H|M)=q$ (and $P(H|\mbox{not }M)=0$).
+Then $P(H) = pq$.
+So to simulate the probability of hearing something at a new door, you roll to see if a monster is present, and then roll to hear it.
+If both come up positive then you hear a noise.
+
+But...but...you object, if the first roll came up positive you know there is a monster, removing the suspense if the second roll fails.
+Well this process does produce the correct (marginal) probability of hearing a noise at a fresh door.
+So you reinterpret the first roll not as determining whether a monster is present, but as just the first step in a two-step process to determine if a sound is heard.
+
+But what if no sound is heard and we decide to open the door?
+We need to reduce the probability that we find a monster behind the door.
+In fact we need to sample $P(M|\mbox{not }H)$.
+We could use Bayes' theorem to compute this but chances are you won't have any selection of dice that will give the correct probability.
+And anyway, you don't want to be doing mathematics in the middle of a game, do you?
+
+There's a straightforward trick.
+In the event that you heard no noise at the door and want to now open the door:
+roll (again) to see if there is a monster behind the door, and then roll to listen again.
+If the outcome of the two rolls matches the information that you know, ie. it predicts you hear nothing, then you can now accept the first roll as determining whether the monster is present.
+In that case the situation is more or less vacuously described by $P(M|\mbox{not }H)$.
+If the two rolls disagree with what you know, ie.\ they predict you hear something, then repeat the roll of two dice.
+Keep repeating until it agrees with what you know.
+
+\section{In general}
+There is a general method here though it's only practical for simple situations.
+If you need to generate some hidden variables as part of a larger procedure, just generate them as usual, keep the variables you observe, and discard the hidden part.
+If you ever need to generate those hidden variables again, and remain consistent with previous rolls, resimulate from the beginning, restarting the rolls if they ever disagree with your previous observations.
+
+In principle you could even do something like simulate an entire fight against a creature whose hit points remain unknown to you.
+But you'll spend a lot of time rerolling the entire fight from the beginning.
+So it's better for situations that only have a small number of steps, like listening at a door.
+
+\end{document}
