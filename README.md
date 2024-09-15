@@ -40,6 +40,7 @@ Clifford Algebras
 
 Randomness
 ----------
+* [What does it take to be a hero? and other questions from statistical mechanics.](https://github.com/dpiponi/StableBlog/blob/main/Battle/Battle.pdf)
 * [How to hide information from yourself](https://github.com/dpiponi/StableBlog/blob/main/SoloRPG/SoloRPG.pdf)
 * [Running from the past](https://github.com/dpiponi/StableBlog/blob/main/RunningFrom/RunningFrom.pdf)
 * [Fast Forwarding lrand48()](https://github.com/dpiponi/StableBlog/blob/main/FastForwarding/FastForwarding.pdf)
