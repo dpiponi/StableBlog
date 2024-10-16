@@ -94,7 +94,7 @@ get the table
 \hline
 Roll & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
 \hline
-Probability & 0.069 & 0.806 & 0.094 & 0.111 & 0.127 & 0.147 & 0.172 & 0.198\\
+Probability & 0.069 & 0.0806 & 0.094 & 0.111 & 0.127 & 0.147 & 0.172 & 0.198\\
 \hline
 \end{tabular}
 \end{center}
@@ -144,7 +144,7 @@ We get
 \hline
 Roll & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
 \hline
-Probability & 0.069 & 0.808 & 0.094 & 0.110 & 0.128 & 0.148 & 0.172 & 0.198\\
+Probability & 0.069 & 0.0808 & 0.094 & 0.110 & 0.128 & 0.148 & 0.172 & 0.198\\
 \hline
 \end{tabular}
 \end{center}
@@ -208,9 +208,9 @@ To get the results above I had to run 2 billion simulations.
 Appropriately enough I watched Conan the Barbarian (1982) while my slow Mac did the work.
 A couple of techniques from the rendering world should speed this up:
 
-\emph{Importance sampling} (Rejection sampling, which is what I already use, is a special case.) Skew the dice rolls upwards a bit so our fighter is miore likely to win, but weight the results appropriately so everything balances out.
+\emph{Importance sampling} (Rejection sampling, which is what I already use, is a special case.) Skew the dice rolls upwards a bit so our fighter is more likely to win, but when you estimate expectations weight the results appropriately so everything balances out.
 
-\emph{"Recursive ray tracing"} Pick some subgoals in the simulation, each less likely than the previous (surviving 3 rounds, surviving 6 rounds, etc.). As well as running simulations from scratch can spawn new simulations that are copies of the state each time a goal is achieved. That way you spend more time running simulations in which many subgoals have been achieved.
+\emph{"Recursive ray tracing"} Pick some subgoals in the simulation, each less likely than the previous (surviving 3 rounds, surviving 6 rounds, etc.). As well as running simulations from scratch you can spawn new simulations that are copies of the state each time a goal is achieved. That way you spend more time running simulations in which many subgoals have been achieved. The down side of this is that outcomes are more correlated (because they share history up to the spawn point) and that tends to increase the variance of your estimates. But if you balance things right you make up for this by having more simulations where the hero survives. This is called \emph{splitting} in the rare event simulation literature.
 
 Both of the above methods need a bit of fine tuning if you want to get the variance of their results low.
 
