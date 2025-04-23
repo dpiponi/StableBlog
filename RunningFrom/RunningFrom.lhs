@@ -38,7 +38,7 @@ But it's also a change of perspective that can be useful in mathematics and I'd 
 
 \section{Markov Chains}
 A \href{https://en.wikipedia.org/wiki/Markov_chain}{Markov chain} is a sequence of random states where each state is drawn from a random distribution that possibly depends on the previous state, but not on any earlier state.
-So it is a sequence $X_0, X_1, X_2, \ldots$ such that $P(X_{i+1}=x|X_0,X_1,\ldots,X_i) = P(X_{i+1}=x|X_i)$ for all $i\ge0$.
+So it is a sequence $X_0, X_1, X_2, \ldots$ such that $P(X_{i+1}=x\vert X_0,X_1,\ldots,X_i) = P(X_{i+1}=x\vert X_i)$ for all $i\ge0$.
 A basic example might be a model of the weather in which each day is either sunny or rainy but where it's more likely to be rainy (or sunny) if the previous day was rainy (or sunny).
 (And to be technically correct: having information about two days or earlier doesn't help us if we know yesterday's weather.)
 
